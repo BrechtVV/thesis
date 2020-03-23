@@ -12,6 +12,7 @@ models_path = "/content/openpose/models/"
 from dependencies import *
 import_openpose(build_path)
 from openpose import pyopenpose as op
+
 from process_image import *
 
 # Flags
@@ -25,9 +26,6 @@ outputFolder = args[0].output
 json_path = outputFolder + "json/"
 if not os.path.exists(json_path):
     os.makedirs(json_path)
-heatmap_path = outputFolder + "heatmap/"
-if not os.path.exists(heatmap_path):
-    os.makedirs(heatmap_path)
 
 
 # Custom Params (refer to include/openpose/flags.hpp for more parameters)
@@ -44,5 +42,22 @@ opWrapper = op.WrapperPython()
 opWrapper.configure(params)
 opWrapper.start()
 
-imageToProcess = cv2.imread(args[0].image_path)
-processImage(opWrapper, imageToProcess, outputFolder + "skeleton.jpg", heatmap_path)
+
+
+cap = cv2.VideoCapture(args[0].image_path)
+i = 0
+while True: 
+    # read frames 
+    ret, img = cap.read()
+    if img is None:
+        break
+    frame_path = outputFolder + "frame" + str(i).zfill(6) + "/"
+    heatmap_path = frame_path + "heatmap/"
+    os.makedirs(heatmap_path)
+    processImage(opWrapper, img, frame_path, heatmap_path)
+    i+=1
+
+cap.release()
+
+
+

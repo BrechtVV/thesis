@@ -21,9 +21,8 @@ parser.add_argument("--image_path", default="media/example1.jpg", help="Process 
 parser.add_argument("--output", default="output/", help="Output folder.")
 args = parser.parse_known_args()
 
-outputFolder = args[0].output
-
-json_path = outputFolder + "json/"
+output_folder = args[0].output
+json_path = output_folder + "json/"
 if not os.path.exists(json_path):
     os.makedirs(json_path)
 
@@ -51,10 +50,10 @@ while True:
     ret, img = cap.read()
     if img is None:
         break
-    frame_path = outputFolder + "frame" + str(i).zfill(6) + "/"
-    heatmap_path = frame_path + "heatmap/"
+    frame_folder = output_folder + "frame" + str(i).zfill(6) + "/"
+    heatmap_path = frame_folder + "heatmap/"
     os.makedirs(heatmap_path)
-    processImage(opWrapper, img, frame_path, heatmap_path)
+    processImage(opWrapper, img, frame_folder + "skeleton.jpg", heatmap_path)
     i+=1
 
 cap.release()

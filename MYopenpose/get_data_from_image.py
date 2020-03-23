@@ -39,9 +39,11 @@ imageToProcess = cv2.imread(args[0].image_path)
 datum.cvInputData = imageToProcess
 opWrapper.emplaceAndPop([datum])
 
+outputFolder = args[0].output
+
 # Display Image
 print("Body keypoints: \n" + str(datum.poseKeypoints))
-cv2.imwrite(args[0].output + "/skeleton.jpg", datum.cvOutputData)
+cv2.imwrite(outputFolder + "skeleton.jpg", datum.cvOutputData)
 
 # Process outputs
 outputImageF = (datum.inputNetData[0].copy())[0,:,:,:] + 0.5
@@ -56,5 +58,5 @@ for counter in range(num_maps):
     heatmap = heatmaps[counter, :, :].copy()
     heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
     #combined = cv2.addWeighted(outputImageF, 0.5, heatmap, 0.5, 0)
-    cv2.imwrite("heatmap_"+ str(counter) + ".jpg", heatmap)
+    cv2.imwrite(outputFolder + "heatmap_"+ str(counter) + ".jpg", heatmap)
     

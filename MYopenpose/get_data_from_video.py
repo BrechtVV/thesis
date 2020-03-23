@@ -12,7 +12,7 @@ from openpose import pyopenpose as op
 
 # Flags
 parser = argparse.ArgumentParser()
-parser.add_argument("--image_path", default="example.jpg", help="Process an image. Read all standard formats (jpg, png, bmp, etc.).")
+parser.add_argument("--image_path", default="media/example1.jpg", help="Process an image. Read all standard formats (jpg, png, bmp, etc.).")
 parser.add_argument("--output", default="", help="Output folder.")
 args = parser.parse_known_args()
 

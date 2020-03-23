@@ -56,9 +56,9 @@ while True:
     processImage(opWrapper, img, frame_folder + "skeleton.jpg", heatmap_path)
     i+=1
     #skip some frames
-    for x in range(10):
-        ret, img = cap.read()
-        i+=1
+    #for x in range(10):
+    #    ret, img = cap.read()
+    #    i+=1
 
 cap.release()
 

@@ -51,12 +51,10 @@ heatmaps = datum.poseHeatMaps.copy()
 heatmaps = (heatmaps).astype(dtype='uint8')
 
 # Display Image
-counter = 0
-while 1:
-    num_maps = heatmaps.shape[0]
+num_maps = heatmaps.shape[0]
+for counter in range(num_maps):
     heatmap = heatmaps[counter, :, :].copy()
     heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
     #combined = cv2.addWeighted(outputImageF, 0.5, heatmap, 0.5, 0)
     cv2.imwrite("heatmap_"+ str(counter) + ".jpg", heatmap)
-    counter += 1
-    counter = counter % num_maps
+    

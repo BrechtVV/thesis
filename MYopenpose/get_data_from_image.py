@@ -16,10 +16,18 @@ from openpose import pyopenpose as op
 # Flags
 parser = argparse.ArgumentParser()
 parser.add_argument("--image_path", default="media/example1.jpg", help="Process an image. Read all standard formats (jpg, png, bmp, etc.).")
-parser.add_argument("--output", default="", help="Output folder.")
+parser.add_argument("--output", default="output/", help="Output folder.")
 args = parser.parse_known_args()
 
 outputFolder = args[0].output
+
+json_path = outputFolder + "json"
+if not os.path.exists(json_path):
+    os.makedirs(json_path)
+heatmap_path = outputFolder + "heatmap"
+if not os.path.exists(heatmap_path):
+    os.makedirs(heatmap_path)
+
 
 # Custom Params (refer to include/openpose/flags.hpp for more parameters)
 params = dict()
@@ -28,7 +36,7 @@ params["heatmaps_add_parts"] = True
 params["heatmaps_add_bkg"] = True
 params["heatmaps_add_PAFs"] = True
 params["heatmaps_scale"] = 2
-params["write_json"] = outputFolder
+params["write_json"] = json_path
 
 # Starting OpenPose
 opWrapper = op.WrapperPython()
@@ -38,12 +46,13 @@ opWrapper.start()
 # Process Image
 datum = op.Datum()
 imageToProcess = cv2.imread(args[0].image_path)
+cv2.imwrite(outputFolder + "original.jpg", imageToProcess)
 datum.cvInputData = imageToProcess
 opWrapper.emplaceAndPop([datum])
 
 # Display Image
 #print("Body keypoints: \n" + str(datum.poseKeypoints))
-cv2.imwrite(outputFolder + "a_skeleton.jpg", datum.cvOutputData)
+cv2.imwrite(outputFolder + "skeleton.jpg", datum.cvOutputData)
 
 # Process outputs
 outputImageF = (datum.inputNetData[0].copy())[0,:,:,:] + 0.5

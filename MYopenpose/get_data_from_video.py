@@ -45,8 +45,8 @@ opWrapper.start()
 
 cap = cv2.VideoCapture(args[0].image_path)
 i = 0
-while True: 
-    # read frames 
+while True:
+    # read frames   
     ret, img = cap.read()
     if img is None:
         break
@@ -55,6 +55,10 @@ while True:
     os.makedirs(heatmap_path)
     processImage(opWrapper, img, frame_folder + "skeleton.jpg", heatmap_path)
     i+=1
+    #skip some frames
+    for x in range(10):
+        ret, img = cap.read()
+        i+=1
 
 cap.release()
 

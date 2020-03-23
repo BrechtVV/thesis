@@ -1,3 +1,5 @@
+from openpose import pyopenpose as op
+
 def processImage(opWrapper, imageToProcess, output_path, heatmap_path):
     # Process Image
     datum = op.Datum()    

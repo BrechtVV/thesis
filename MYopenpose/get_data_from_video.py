@@ -6,8 +6,11 @@ import os
 from sys import platform
 import argparse
 
+build_path = "/content/openpose/build/"
+models_path = "/content/openpose/models/"
+
 from dependencies import *
-import_openpose("/content/openpose/build/")
+import_openpose(build_path)
 from openpose import pyopenpose as op
 
 # Flags
@@ -18,7 +21,7 @@ args = parser.parse_known_args()
 
 # Custom Params (refer to include/openpose/flags.hpp for more parameters)
 params = dict()
-params["model_folder"] = "../../../models/"
+params["model_folder"] = models_path
 params["heatmaps_add_parts"] = True
 params["heatmaps_add_bkg"] = True
 params["heatmaps_add_PAFs"] = True

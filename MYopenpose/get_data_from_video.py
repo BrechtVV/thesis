@@ -53,7 +53,7 @@ while True:
     frame_folder = output_folder + "frame" + str(i).zfill(6) + "/"
     heatmap_path = frame_folder + "heatmap/"
     os.makedirs(heatmap_path)
-    processImage(opWrapper, img, frame_folder + "skeleton.jpg", heatmap_path)
+    process_image(opWrapper, img, frame_folder + "skeleton.jpg", heatmap_path)
     i+=1
     #skip some frames
     #for x in range(10):

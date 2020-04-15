@@ -16,18 +16,18 @@ from process_image import *
 
 # Flags
 parser = argparse.ArgumentParser()
-parser.add_argument("--image_path", default="media/example1.jpg", help="Process an image. Read all standard formats (jpg, png, bmp, etc.).")
-parser.add_argument("--output", default="output/", help="Output folder.")
-args = parser.parse_known_args()
+parser.add_argument('--images', type=str, default="./images")
+parser.add_argument('--json-folder', type=str, default="./json")
+parser.add_argument('--output-folder', type=str, default="./output")
+#args = parser.parse_known_args()
 
-outputFolder = args[0].output
+args = parser.parse_args()
 
-json_path = outputFolder + "json/"
-if not os.path.exists(json_path):
-    os.makedirs(json_path)
-heatmap_path = outputFolder + "heatmap/"
-if not os.path.exists(heatmap_path):
-    os.makedirs(heatmap_path)
+output_folder = args.output_folder
+
+json_temp = os.path.join(args.json_folder, "temp")
+if not os.path.exists(json_temp):
+    os.makedirs(json_temp)
 
 
 # Custom Params (refer to include/openpose/flags.hpp for more parameters)
@@ -37,12 +37,15 @@ params["heatmaps_add_parts"] = True
 params["heatmaps_add_bkg"] = True
 params["heatmaps_add_PAFs"] = True
 params["heatmaps_scale"] = 2
-params["write_json"] = json_path
+params["write_json"] = json_temp
 
 # Starting OpenPose
 opWrapper = op.WrapperPython()
 opWrapper.configure(params)
 opWrapper.start()
 
-imageToProcess = cv2.imread(args[0].image_path)
-process_image(opWrapper, imageToProcess, outputFolder + "skeleton.jpg", heatmap_path)
+for f in os.listdir(args.images):
+    image_path = os.path.join(args.images, f)
+    image = cv2.imread(image_path)
+    output_path = os.path.join(args.output_folder, f)
+    process_image(opWrapper, image, output_path)

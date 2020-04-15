@@ -33,7 +33,7 @@ def process_image(image_path, resize_out_ratio, json_folder, output_folder):
 
     #logger.info('inference image: %s in %.4f seconds.' % (image_path, elapsed))
 
-    width, height = image.shape[:2]
+    height, width = image.shape[:2]
     image = TfPoseEstimator.draw_humans(image, humans, imgcopy=False)
     
     b_name = os.path.basename(image_path)

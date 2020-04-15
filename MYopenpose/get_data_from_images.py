@@ -44,8 +44,14 @@ opWrapper = op.WrapperPython()
 opWrapper.configure(params)
 opWrapper.start()
 
+from openpose_to_json import *
+
+index = 0
 for f in os.listdir(args.images):
     image_path = os.path.join(args.images, f)
     image = cv2.imread(image_path)
     output_path = os.path.join(args.output_folder, f)
     process_image(opWrapper, image, output_path)
+
+    parse_json(os.path.join(json_temp, str(index) + "_keypoints.json")   ,os.path.join(args.json_folder, f[:-3] + ".json"))
+    index += 1

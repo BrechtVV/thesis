@@ -53,5 +53,10 @@ for f in os.listdir(args.images):
     output_path = os.path.join(args.output_folder, f)
     process_image(opWrapper, image, output_path)
 
-    parse_json(os.path.join(json_temp, str(index) + "_keypoints.json")   ,os.path.join(args.json_folder, f[:-3] + ".json"))
+    json_input = os.path.join(json_temp, str(index) + "_keypoints.json") 
+    json_output = os.path.join(args.json_folder, f[:-3] + ".json")
+    parse_json(json_input, json_output)
     index += 1
+
+import shutil
+shutil.rmtree(json_temp)

@@ -31,11 +31,12 @@ def convert(humans, width, height, json_path="result.json"):
         h = {}
         #for idx, bp in human.body_parts.items():
         for idx in range(18):
+            kp = CocoPart(idx).name
             if idx in human.body_parts:
                 bp = human.body_parts[idx]   
-                h[idx] = [bp.x*width, bp.y*height, bp.score]
+                h[kp] = [bp.x*width, bp.y*height, bp.score]
             else:
-                h[idx] = [0, 0, 0]
+                h[kp] = [0, 0, 0]
         output['people'].append(h)
     
     with open(json_path, 'w') as outfile:

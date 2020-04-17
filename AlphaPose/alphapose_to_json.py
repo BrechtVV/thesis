@@ -1,6 +1,28 @@
 import argparse
 import json
 import os
+from enum import Enum
+
+class CocoPart(Enum):
+    Nose = 0
+    Neck = 1
+    RShoulder = 2
+    RElbow = 3
+    RWrist = 4
+    LShoulder = 5
+    LElbow = 6
+    LWrist = 7
+    RHip = 8
+    RKnee = 9
+    RAnkle = 10
+    LHip = 11
+    LKnee = 12
+    LAnkle = 13
+    REye = 14
+    LEye = 15
+    REar = 16
+    LEar = 17
+    Background = 18
 
 def convert_open(input_path, output_path):
     with open(input_path) as json_file:
@@ -16,7 +38,8 @@ def convert_open(input_path, output_path):
                 x = kps[i]
                 y = kps[i+1]
                 c = kps[i+2]
-                h[int(i/3)] = [x, y, c]
+                kp = CocoPart(int(i/3)).name
+                h[kp] = [x, y, c]
             output['people'].append(h)
 
         with open(output_path, 'w') as outfile:

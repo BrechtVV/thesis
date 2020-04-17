@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 
@@ -22,29 +23,13 @@ def convert_open(input_path, output_path):
             json.dump(output, outfile)
 
 
-def convert_coco(input_path, output_path):
-    data = {}   
-    with open(input_path) as json_file:
-        data = json.load(json_file)
-        
-    output = {}
-    for d in data:
-        im_id = d['image_id']
-        if im_id not in output.keys():
-            output[im_id] = {}
-            output[im_id]['people'] = []
-        
-        h = {}
-        kps = d['keypoints']
-        for i in range(0, len(kps), 3):
-            x = kps[i]
-            y = kps[i+1]
-            c = kps[i+2]
-            h[int(i/3)] = [x, y, c]
-        output[im_id]['people'].append(h)
 
-    for k in output.keys():        
-        filename = os.path.join(output_path, k[:-3] + "json")
-        out = output[k]
-        with open(filename, 'w') as outfile:
-            json.dump(out, outfile)
+parser = argparse.ArgumentParser(description='AlphaPose Convert')
+parser.add_argument('--input-dir', help='input-directory')
+parser.add_argument('--output-dir', help='output-directory')
+args = parser.parse_args()
+
+for f in os.listdir(args.input_dir):
+    in_path = os.path.join(args.input_dir, f)
+    out_path = os.path.join(args.output_dir, f)
+    convert_open(in_path, out_path)

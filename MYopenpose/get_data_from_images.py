@@ -33,20 +33,20 @@ if not os.path.exists(json_temp):
 # Custom Params (refer to include/openpose/flags.hpp for more parameters)
 params = dict()
 params["model_folder"] = models_path
-params["heatmaps_add_parts"] = True
-params["heatmaps_add_bkg"] = True
-params["heatmaps_add_PAFs"] = True
-params["heatmaps_scale"] = 2
+#params["heatmaps_add_parts"] = True
+#params["heatmaps_add_bkg"] = True
+#params["heatmaps_add_PAFs"] = True
+#params["heatmaps_scale"] = 2
 params["write_json"] = json_temp
 
 # Face
 params["face"] = True
-params["face_detector"] = 2
+#params["face_detector"] = 2
 #params["body"] = 0
 
 # Hand
 params["hand"] = True
-params["hand_detector"] = 2
+#params["hand_detector"] = 2
 #params["body"] = 0
 
 # Starting OpenPose

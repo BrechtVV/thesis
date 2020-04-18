@@ -42,12 +42,12 @@ params["write_json"] = json_temp
 # Face
 params["face"] = True
 params["face_detector"] = 2
-params["body"] = 0
+#params["body"] = 0
 
 # Hand
 params["hand"] = True
 params["hand_detector"] = 2
-params["body"] = 0
+#params["body"] = 0
 
 # Starting OpenPose
 opWrapper = op.WrapperPython()

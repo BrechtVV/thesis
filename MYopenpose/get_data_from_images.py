@@ -39,6 +39,16 @@ params["heatmaps_add_PAFs"] = True
 params["heatmaps_scale"] = 2
 params["write_json"] = json_temp
 
+# Face
+params["face"] = True
+params["face_detector"] = 2
+params["body"] = 0
+
+# Hand
+params["hand"] = True
+params["hand_detector"] = 2
+params["body"] = 0
+
 # Starting OpenPose
 opWrapper = op.WrapperPython()
 opWrapper.configure(params)
@@ -59,4 +69,4 @@ for f in os.listdir(args.images):
     index += 1
 
 import shutil
-shutil.rmtree(json_temp)
+#shutil.rmtree(json_temp)

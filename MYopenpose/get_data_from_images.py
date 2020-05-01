@@ -64,7 +64,7 @@ for f in os.listdir(args.images):
     process_image(opWrapper, image, output_path)
 
     json_input = os.path.join(json_temp, str(index) + "_keypoints.json") 
-    json_output = os.path.join(args.json_folder, f[:-3] + ".json")
+    json_output = os.path.join(args.json_folder, f[:-3] + "json")
     parse_json(json_input, json_output)
     index += 1
 

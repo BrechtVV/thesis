@@ -40,7 +40,7 @@ def process_image(image_path, resize_out_ratio, json_folder, output_folder):
     
     cv2.imwrite(os.path.join(output_folder,b_name), image)
     from humans_to_json import convert
-    convert(humans, width, height, os.path.join(json_folder, b_name[:-3] + ".json"))
+    convert(humans, width, height, os.path.join(json_folder, b_name[:-3] + "json"))
 
 
 

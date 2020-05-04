@@ -34,18 +34,12 @@ print("Trained Model Restored!")
 
 
 def get_multi_scale_img(img,scale):
-    #img_id = give_id
-    #filepath = os.path.join(IMG_DIR,self.coco.imgs[img_id]['file_name'])
-    #img = cv2.imread(filepath)
-    print("original", img.shape)
     cv_shape = (config.IMAGE_SHAPE[1], config.IMAGE_SHAPE[0])
     cv_shape2 = (int(cv_shape[0]*scale),int(cv_shape[1]*scale))
     max_shape = max(img.shape[0],img.shape[1])
     scale2 = cv_shape2[0]/max_shape
     img = cv2.resize(img,None,fx=scale2,fy=scale2)
-    print("resize", img.shape)
     img = cv2.copyMakeBorder(img,0,cv_shape2[0]-img.shape[0],0,cv_shape2[1]-img.shape[1],cv2.BORDER_CONSTANT,value=[127,127,127])
-    print("border", img.shape)
     return img
 
 
@@ -53,10 +47,9 @@ def crop_to_original_size(original, img):
     h1, w1 = original.shape[:2]
     h2, w2 = img.shape[:2]
     scale = max(h1/h2, w1/w2)
-    #h3, w3 = (h2/scale, w2/scale)
     new = cv2.resize(img, None, fx=scale, fy=scale)
     res = new[:h1,:w1,:]
-
+    return res
 
 def process_image(filepath, save_dir):
     original = cv2.imread(filepath)

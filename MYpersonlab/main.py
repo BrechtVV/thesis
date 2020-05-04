@@ -124,9 +124,9 @@ def process_image(filepath, save_dir):
     plt.imsave(os.path.join(save_dir, 'mask_org_scale.jpg'), temp)
 
     #visualize_long_offsets(offsets=sample_output[3], keypoint_id='Rshoulder', seg_mask=sample_output[4], img=img, every=8,save_path=save_path)
-    
-    instance_masks = get_instance_masks(pred_skels, sample_output[-1][:,:,0], sample_output[-2])
-    plot_instance_masks(instance_masks, img,save_path=save_dir)
+    if len(pred_kp) > 0:
+        instance_masks = get_instance_masks(pred_skels, sample_output[-1][:,:,0], sample_output[-2])
+        plot_instance_masks(instance_masks, img,save_path=save_dir)
 
 
 def overlay(img, over, alpha=0.5):

@@ -59,7 +59,7 @@ def crop_to_original_size(original, img):
 
 
 def process_image(filepath, save_dir):
-    original = cv2.read(filepath)
+    original = cv2.imread(filepath)
     scale_outputs = []
     for i in range(len(multiscale)):
         scale = multiscale[i]

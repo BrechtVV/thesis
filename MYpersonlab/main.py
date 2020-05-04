@@ -107,8 +107,13 @@ def process_image(filepath, save_dir):
     plt.imsave(os.path.join(save_dir,'segmentation_mask.jpg'), applied_mask)
 
     mask = sample_output[4][:,:,0]>0.5
-    for c in range(3):
-            mask[:, :, c] = np.where(mask == 1, 255, 0)
+    print("len mask", len(mask))
+    print("len mask[0]", len(mask[0]))
+    print("mask", mask)
+
+
+    #for c in range(3):
+    #        mask[:, :, c] = np.where(mask == 1, 255, 0)
     plt.imsave(os.path.join(save_dir, 'mask.jpg'), mask)
 
     #visualize_long_offsets(offsets=sample_output[3], keypoint_id='Rshoulder', seg_mask=sample_output[4], img=img, every=8,save_path=save_path)

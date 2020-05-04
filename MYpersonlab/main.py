@@ -142,5 +142,5 @@ else:
 
 for img_path in images:
     save_dir = os.mkdir(os.path.join(args.output, img_path.split(".")[0]))
-    print(img_path)
+    print(img_path, "=>", save_dir)
     process_image(img_path, save_dir)

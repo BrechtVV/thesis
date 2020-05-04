@@ -141,12 +141,7 @@ else:
     images = [args.input]
 
 for img_path in images[0:1]:
-    save_dir = args.output
-    print("save_dir", save_dir)
-    img_temp = img_path.split(".")[0]
-    print("img_temp", img_temp)
-    save_dir_img = os.path.join(save_dir, img_temp)    
-    print("save_dir_img", save_dir_img)
+    save_dir_img = os.path.join(args.output, os.path.basename(img_path).split(".")[0])    
     os.mkdir(save_dir_img)
     print(img_path, "=>", save_dir_img)
     process_image(img_path, save_dir_img+"/")

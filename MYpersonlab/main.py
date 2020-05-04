@@ -37,12 +37,15 @@ def get_multi_scale_img(filepath,scale):
     #img_id = give_id
     #filepath = os.path.join(IMG_DIR,self.coco.imgs[img_id]['file_name'])
     img = cv2.imread(filepath)
+    print("original", img.shape)
     cv_shape = (config.IMAGE_SHAPE[1], config.IMAGE_SHAPE[0])
     cv_shape2 = (int(cv_shape[0]*scale),int(cv_shape[1]*scale))
     max_shape = max(img.shape[0],img.shape[1])
     scale2 = cv_shape2[0]/max_shape
     img = cv2.resize(img,None,fx=scale2,fy=scale2)
+    print("resize", img.shape)
     img = cv2.copyMakeBorder(img,0,cv_shape2[0]-img.shape[0],0,cv_shape2[1]-img.shape[1],cv2.BORDER_CONSTANT,value=[127,127,127])
+    print("border", img.shape)
     return img
 
 

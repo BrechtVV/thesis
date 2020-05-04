@@ -105,7 +105,11 @@ def process_image(filepath, save_dir):
     # we can use the predicted skeletons along with the long-range offsets and binary segmentation mask to compute the instance masks. 
     applied_mask = apply_mask(img, sample_output[4][:,:,0]>0.5, color=[255,0,0])
     plt.imsave(os.path.join(save_dir,'segmentation_mask.jpg'), applied_mask)
-    plt.imsave(os.path.join(save_dir, 'mask.jpg'), sample_output[4][:,:,0]>0.5)
+
+    mask = sample_output[4][:,:,0]>0.5
+    for c in range(3):
+            mask[:, :, c] = np.where(mask == 1, 255, 0)
+    plt.imsave(os.path.join(save_dir, 'mask.jpg'), mask)
 
     #visualize_long_offsets(offsets=sample_output[3], keypoint_id='Rshoulder', seg_mask=sample_output[4], img=img, every=8,save_path=save_path)
     

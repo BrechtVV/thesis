@@ -125,8 +125,10 @@ def process_image(filepath, save_dir):
     temp.fill(255) 
     for c in range(3):
             temp[:, :, c] = np.where(mask == 1, 255, 0)
+    
+    plt.imsave(os.path.join(save_dir, 'mask_new_scale.jpg'), temp)
     temp = crop_to_original_size(original, temp)
-    plt.imsave(os.path.join(save_dir, 'mask.jpg'), temp)
+    plt.imsave(os.path.join(save_dir, 'mask_org_scale.jpg'), temp)
 
     #visualize_long_offsets(offsets=sample_output[3], keypoint_id='Rshoulder', seg_mask=sample_output[4], img=img, every=8,save_path=save_path)
     

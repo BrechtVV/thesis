@@ -107,14 +107,12 @@ def process_image(filepath, save_dir):
     plt.imsave(os.path.join(save_dir,'segmentation_mask.jpg'), applied_mask)
 
     mask = sample_output[4][:,:,0]>0.5
-    print("len mask", len(mask))
-    print("len mask[0]", len(mask[0]))
-    print("mask", mask)
-
-
-    #for c in range(3):
-    #        mask[:, :, c] = np.where(mask == 1, 255, 0)
-    plt.imsave(os.path.join(save_dir, 'mask.jpg'), mask)
+    print("img shape", img.shape)
+    temp = np.zeros(img.shape,dtype=np.uint8)
+    temp.fill(255) 
+    for c in range(3):
+            temp[:, :, c] = np.where(mask == 1, 255, 0)
+    plt.imsave(os.path.join(save_dir, 'mask.jpg'), temp)
 
     #visualize_long_offsets(offsets=sample_output[3], keypoint_id='Rshoulder', seg_mask=sample_output[4], img=img, every=8,save_path=save_path)
     
@@ -150,7 +148,7 @@ if os.path.isdir(args.input):
 else:
     images = [args.input]
 
-for img_path in images[0:1]:
+for img_path in sorted(images)[0:1]:
     save_dir_img = os.path.join(args.output, os.path.basename(img_path).split(".")[0])    
     os.mkdir(save_dir_img)
     print(img_path, "=>", save_dir_img)

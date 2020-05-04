@@ -140,9 +140,11 @@ if os.path.isdir(args.input):
 else:
     images = [args.input]
 
-print("output", args.output)
 for img_path in images[0:1]:
-    save_dir = os.path.join(args.output, img_path.split(".")[0])    
-    os.mkdir(save_dir)
-    print(img_path, "=>", save_dir)
-    process_image(img_path, save_dir+"/")
+    save_dir = args.output
+    print("save_dir", save_dir)
+    save_dir_img = os.path.join(save_dir, img_path.split(".")[0])    
+    print("save_dir_img", save_dir_img)
+    os.mkdir(save_dir_img)
+    print(img_path, "=>", save_dir_img)
+    process_image(img_path, save_dir_img+"/")

@@ -140,7 +140,8 @@ if os.path.isdir(args.input):
 else:
     images = [args.input]
 
-for img_path in images:
+print("output", args.output)
+for img_path in images[0:1]:
     save_dir = os.path.join(args.output, img_path.split(".")[0])    
     os.mkdir(save_dir)
     print(img_path, "=>", save_dir)

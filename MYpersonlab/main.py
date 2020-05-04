@@ -33,10 +33,10 @@ saver.restore(sess,checkpoint_path)
 print("Trained Model Restored!")
 
 
-def get_multi_scale_img(filepath,scale):
+def get_multi_scale_img(img,scale):
     #img_id = give_id
     #filepath = os.path.join(IMG_DIR,self.coco.imgs[img_id]['file_name'])
-    img = cv2.imread(filepath)
+    #img = cv2.imread(filepath)
     print("original", img.shape)
     cv_shape = (config.IMAGE_SHAPE[1], config.IMAGE_SHAPE[0])
     cv_shape2 = (int(cv_shape[0]*scale),int(cv_shape[1]*scale))
@@ -49,11 +49,21 @@ def get_multi_scale_img(filepath,scale):
     return img
 
 
+def crop_to_original_size(original, img):
+    h1, w1 = original.shape[:2]
+    h2, w2 = img.shape[:2]
+    scale = max(h1/h2, w1/w2)
+    #h3, w3 = (h2/scale, w2/scale)
+    new = cv2.resize(img, None, fx=scale, fy=scale)
+    res = new[:h1,:w1,:]
+
+
 def process_image(filepath, save_dir):
+    original = cv2.read(filepath)
     scale_outputs = []
     for i in range(len(multiscale)):
         scale = multiscale[i]
-        scale_img = get_multi_scale_img(filepath=filepath,scale=scale)
+        scale_img = get_multi_scale_img(img=original,scale=scale)
         if i==0:
             img = scale_img[:,:,[2,1,0]]
             plt.imsave(os.path.join(save_dir,'input_image.jpg'),img)
@@ -115,6 +125,7 @@ def process_image(filepath, save_dir):
     temp.fill(255) 
     for c in range(3):
             temp[:, :, c] = np.where(mask == 1, 255, 0)
+    temp = crop_to_original_size(original, temp)
     plt.imsave(os.path.join(save_dir, 'mask.jpg'), temp)
 
     #visualize_long_offsets(offsets=sample_output[3], keypoint_id='Rshoulder', seg_mask=sample_output[4], img=img, every=8,save_path=save_path)

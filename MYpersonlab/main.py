@@ -113,7 +113,6 @@ def process_image(filepath, save_dir):
     plt.imsave(os.path.join(save_dir,'segmentation_mask.jpg'), applied_mask)
 
     mask = sample_output[4][:,:,0]>0.5
-    print("img shape", img.shape)
     temp = np.zeros(img.shape,dtype=np.uint8)
     temp.fill(255) 
     for c in range(3):
